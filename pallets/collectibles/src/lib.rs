@@ -4,7 +4,7 @@ pub use pallet::*;
 
 #[frame_support::pallet(dev_mode)]
 pub mod pallet {
-	use frame_support::{pallet_prelude::*, traits::{Currency, Randomness}, sp_runtime::traits::BlockNumberProvider};
+	use frame_support::{pallet_prelude::*, traits::{Currency, Randomness}};
 	use frame_system::pallet_prelude::*;
 	
 
@@ -39,5 +39,10 @@ pub mod pallet {
 		pub color: Color,
 		pub owner: T::AccountId,
 	}
-]
+
+	#[pallet::storage]
+	pub(super) type CollectiblesCount<T: Config> = StorageValue<_, u64, ValueQuery>;
+
+	#[pallet::storage]
+	pub(super) type CollectibleMap<T: Config> = StorageMap<_, Twox64Concat, [u8; 16], Collectible<T>>;
 }
